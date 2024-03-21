@@ -3,6 +3,7 @@ const express = require("express");
 // Configure express
 const app = express();
 const port = process.env.PORT || 3000;
+const router = require("./lib/router");
 
 let _ = {};
 
@@ -17,11 +18,13 @@ _.start = () => {
 };
 
 // Default api route
-app.use("/", (req, res, next) => {
+app.get("/", (req, res, next) => {
   res.json({
     code: 200,
     message: "success",
   });
 });
+
+app.use("/api", router);
 
 _.start();
