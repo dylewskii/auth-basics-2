@@ -16,4 +16,12 @@ _.start = () => {
   }
 };
 
+// Default api route
+app.use("/", (req, res, next) => {
+  res.json({
+    code: 200,
+    message: "success",
+  });
+});
+
 _.start();
