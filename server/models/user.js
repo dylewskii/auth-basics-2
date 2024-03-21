@@ -1,7 +1,9 @@
+const { v4: uuidv4 } = uuid();
+
 let _ = class User {
   constructor() {
     this.created = new Date();
-    this.id = "";
+    this.id = uuidv4();
     this.name = {
       first: null,
       last: null,
