@@ -1,14 +1,19 @@
 const express = require("express");
+const User = require("../models/user");
 
 const router = express.Router();
 
 // POST /register
 router.post("/register", async (req, res) => {
   try {
+    let user = new User();
+    console.log(user);
+
     res.status(200).json({
       timestamp: Date.now(),
       msg: "Succesfully Registered",
       code: 200,
+      user,
     });
   } catch (error) {
     throw new Error(error);
