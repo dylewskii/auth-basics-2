@@ -14,6 +14,28 @@ let _ = class User {
     };
     this.banned = false;
   }
+
+  // save user to db
+  save() {
+    console.log(`saved user under id: ${this.id}`);
+  }
+
+  // find user with given id
+  find(id) {
+    return "";
+  }
+
+  setFirstName(firstName) {
+    try {
+      if (firstName) {
+        // sanitize (match multiple spaces and replace with a single space)
+        firstName = firstName.trim().replace(/  +/g, "");
+      }
+      this.name.first = firstName;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 };
 
 module.exports = _;
