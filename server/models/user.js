@@ -1,6 +1,7 @@
-const { v4: uuidv4 } = uuid();
+const { v4: uuidv4 } = require("uuid");
 const validate = require("validate.js");
 const constraints = require("../lib/constraints");
+const bcrypt = require("bcrypt");
 
 const _ = class User {
   constructor() {
@@ -78,18 +79,19 @@ const _ = class User {
     }
   }
 
-  setPassword = (password) => {
+  async setPassword(password) {
     try {
       let msg = validate.single(password, constraints.password);
       if (msg) {
         return msg;
       } else {
-        this.security.passwordHash = ""; // hash pass
+        this.security.passwordHash = await bcrypt.hash(password, 10);
+        return;
       }
     } catch (error) {
       throw new Error(error);
     }
-  };
+  }
 };
 
 module.exports = _;
