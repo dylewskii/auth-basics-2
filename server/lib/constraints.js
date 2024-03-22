@@ -13,6 +13,19 @@ constraints.name = () => {
       message: `name must match following pattern ${regex}`,
     },
   };
+  return constraints;
+};
+
+constraints.email = () => {
+  const constraints = {
+    presence: {
+      allowEmpty: false,
+    },
+    type: "string",
+    email: "true",
+  };
+
+  return constraints;
 };
 
 module.exports = constraints;

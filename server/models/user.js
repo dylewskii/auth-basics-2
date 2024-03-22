@@ -63,6 +63,20 @@ const _ = class User {
       throw new Error(error);
     }
   }
+
+  setEmail(email) {
+    try {
+      let msg = validate.single(email, constraints.email);
+      if (msg) {
+        return msg;
+      } else {
+        this.email = email;
+        return;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 };
 
 module.exports = _;
