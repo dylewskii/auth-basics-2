@@ -35,10 +35,29 @@ const _ = class User {
       }
 
       let msg = validate.single(firstName, constraints.name);
+
       if (msg) {
         return msg;
       } else {
         this.name.firstName = firstName;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  setLastName(lastName) {
+    try {
+      if (lastName) {
+        lastName = lastName.trim().replace(/  +/g, "");
+      }
+
+      let msg = validate.single(lastName, constraints.name);
+
+      if (msg) {
+        return msg;
+      } else {
+        this.name.lastName = lastName;
       }
     } catch (error) {
       throw new Error(error);
