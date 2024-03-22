@@ -6,10 +6,11 @@ const router = express.Router();
 // POST /register
 router.post("/register", async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
+    res.send("POST REGISTER");
     // const { firstName, lastName, email, password } = req.body;
     // console.log(firstName, lastName, email, password);
-    next();
+    // next();
   } catch (error) {
     throw new Error(error);
   }
