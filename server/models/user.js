@@ -1,6 +1,8 @@
 const { v4: uuidv4 } = uuid();
+const validate = require("validate.js");
+const constraints = require("../lib/constraints");
 
-let _ = class User {
+const _ = class User {
   constructor() {
     this.created = new Date();
     this.id = uuidv4();
@@ -31,7 +33,13 @@ let _ = class User {
         // sanitize (match multiple spaces and replace with a single space)
         firstName = firstName.trim().replace(/  +/g, "");
       }
-      this.name.first = firstName;
+
+      let msg = validate.single(firstName, constraints.name);
+      if (msg) {
+        return msg;
+      } else {
+        this.name.firstName = firstName;
+      }
     } catch (error) {
       throw new Error(error);
     }
