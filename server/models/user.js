@@ -77,6 +77,19 @@ const _ = class User {
       throw new Error(error);
     }
   }
+
+  setPassword = (password) => {
+    try {
+      let msg = validate.single(password, constraints.password);
+      if (msg) {
+        return msg;
+      } else {
+        this.security.passwordHash = ""; // hash pass
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 };
 
 module.exports = _;

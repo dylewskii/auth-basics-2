@@ -28,4 +28,17 @@ constraints.email = () => {
   return constraints;
 };
 
+constraints.password = () => {
+  const constraints = {
+    presence: {
+      allowEmpty: false,
+    },
+    length: {
+      minimum: 6,
+    },
+  };
+
+  return constraints;
+};
+
 module.exports = constraints;
