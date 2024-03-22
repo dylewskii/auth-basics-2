@@ -1,9 +1,9 @@
 const express = require("express");
+const router = require("./lib/router");
 
 // Configure express
 const app = express();
 const port = process.env.PORT || 3000;
-const router = require("./lib/router");
 
 let _ = {};
 
@@ -17,14 +17,7 @@ _.start = () => {
   }
 };
 
-// Default api route
-app.get("/", (req, res, next) => {
-  res.json({
-    code: 200,
-    message: "success",
-  });
-});
-
+app.use(express.json());
 app.use("/api", router);
 
 _.start();

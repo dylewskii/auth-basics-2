@@ -4,17 +4,12 @@ const User = require("../models/user");
 const router = express.Router();
 
 // POST /register
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
   try {
-    let user = new User();
-    console.log(user);
-
-    res.status(200).json({
-      timestamp: Date.now(),
-      msg: "Succesfully Registered",
-      code: 200,
-      user,
-    });
+    console.log(req.body);
+    // const { firstName, lastName, email, password } = req.body;
+    // console.log(firstName, lastName, email, password);
+    next();
   } catch (error) {
     throw new Error(error);
   }
