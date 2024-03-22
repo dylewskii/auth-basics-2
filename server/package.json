@@ -1,7 +1,28 @@
 {
+  "name": "auth-basics-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylewskii/auth-basics-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dylewskii/auth-basics-2/issues"
+  },
+  "homepage": "https://github.com/dylewskii/auth-basics-2#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "nodemon": "^3.1.0",
+    "express": "^4.19.1",
     "uuid": "^9.0.1",
     "validate.js": "^0.13.1"
   }
