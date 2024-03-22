@@ -6,10 +6,15 @@ const router = express.Router();
 // POST /register
 router.post("/register", async (req, res, next) => {
   try {
-    console.log(req.body);
-    // const { firstName, lastName, email, password } = req.body;
-    // console.log(firstName, lastName, email, password);
-    next();
+    let user = new User();
+    user.setFirstName("First Test");
+    user.setLastName("Last Test");
+    user.setEmail("test@test.com");
+    user.setPassword("password");
+
+    const { firstName, lastName, email, password } = req.body;
+    console.log(firstName, lastName, email, password);
+    res;
   } catch (error) {
     throw new Error(error);
   }

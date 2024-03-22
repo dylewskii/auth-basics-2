@@ -1,8 +1,12 @@
 const express = require("express");
+const app = express();
 const router = require("./lib/router");
 
-// Configure express
-const app = express();
+// handle urlencoded data
+app.use(express.urlencoded({ extended: true }));
+// handle json data coming from requests mainly post
+app.use(express.json());
+
 const port = process.env.PORT || 3000;
 
 let _ = {};
@@ -17,7 +21,6 @@ _.start = () => {
   }
 };
 
-app.use(express.json());
 app.use("/api", router);
 
 _.start();
