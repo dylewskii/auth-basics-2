@@ -59,7 +59,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   console.log(`1 - Login handler ${JSON.stringify(req.body)}`);
   passport.authenticate("local", (err, user) => {
     console.log(`3 - Passport authenticate cb ${JSON.stringify(user)}`);
@@ -77,7 +77,7 @@ router.post("/login", (req, res) => {
         redirectTo: "/profile",
       });
     });
-  })(req, res, next);
+  })(req, res);
 });
 
 // POST /logout

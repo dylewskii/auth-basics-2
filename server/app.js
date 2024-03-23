@@ -3,11 +3,7 @@ const app = express();
 const router = require("./lib/router");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-
-// handle urlencoded data
-app.use(express.urlencoded({ extended: true }));
-// handle json data coming from requests mainly post
-app.use(express.json());
+const cookieSession = require("cookie-session");
 
 const port = process.env.PORT || 3000;
 
@@ -23,7 +19,23 @@ _.start = () => {
   }
 };
 
+app.use(
+  cookieSession({
+    name: "app-auth",
+    keys: ["secret-new", "secret-old"],
+    maxAge: 60 * 60 * 24,
+  })
+);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => {
+  console.log(`4 - Serialize user ${JSON.stringify(user)}`);
+  return done(null, user.id);
+});
 passport.use(
   "local",
   new LocalStrategy(
