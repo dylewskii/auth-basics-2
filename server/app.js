@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const router = require("./lib/router");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy();
+const LocalStrategy = require("passport-local").Strategy;
 
 // handle urlencoded data
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,8 @@ passport.use(
   new LocalStrategy(
     { passReqToCallback: true },
     (req, username, password, done) => {
-      console.log("Local Strategy verify cb");
+      console.log("2 - Local Strategy verify cb");
+      // call db to verify user
       return done(null, { id: "test" });
     }
   )

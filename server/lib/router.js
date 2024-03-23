@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/user");
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -58,17 +59,25 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-// POST /login
-router.post("/login", async (req, res) => {
-  try {
-    res.status(200).json({
-      timestamp: Date.now(),
-      msg: "Logged-in Succesfully",
-      code: 200,
+router.post("/login", (req, res) => {
+  console.log(`1 - Login handler ${JSON.stringify(req.body)}`);
+  passport.authenticate("local", (err, user) => {
+    console.log(`3 - Passport authenticate cb ${JSON.stringify(user)}`);
+    if (err) {
+      //handle
+    }
+
+    if (user) {
+      //handle
+    }
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      res.status(200).json({
+        redirectTo: "/profile",
+      });
     });
-  } catch (error) {
-    throw new Error(error);
-  }
+  })(req, res, next);
 });
 
 // POST /logout
