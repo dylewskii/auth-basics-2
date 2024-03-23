@@ -23,6 +23,18 @@ _.start = () => {
   }
 };
 
+app.use(passport.initialize());
+passport.use(
+  "local",
+  new LocalStrategy(
+    { passReqToCallback: true },
+    (req, username, password, done) => {
+      console.log("Local Strategy verify cb");
+      return done(null, { id: "test" });
+    }
+  )
+);
+
 app.use("/api", router);
 
 _.start();
