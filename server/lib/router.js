@@ -6,15 +6,53 @@ const router = express.Router();
 // POST /register
 router.post("/register", async (req, res, next) => {
   try {
+    const { firstName, lastName, email, password } = req.body;
+
     let user = new User();
+
     user.setFirstName("First Test");
     user.setLastName("Last Test");
     user.setEmail("test@test.com");
     user.setPassword("password");
 
-    console.log(req.body);
-    const { firstName, lastName, email, password } = req.body;
-    console.log(firstName, lastName, email, password);
+    let msg = false;
+    msg = user.setFirstName(names.first);
+    if (msg) {
+      return res
+        .status(400)
+        .json({ error: { code: 400, type: "first name", message: msg } });
+    }
+
+    msg = user.setLastName(names.last);
+    if (msg) {
+      return res
+        .status(400)
+        .json({ error: { code: 400, type: "last name", message: msg } });
+    }
+
+    msg = user.setEmail(email);
+    if (msg) {
+      return res
+        .status(400)
+        .json({ error: { code: 400, type: "email", message: msg } });
+    }
+
+    msg = await user.setPassword(password);
+    if (msg) {
+      return res
+        .status(400)
+        .json({ error: { code: 400, type: "password", message: msg } });
+    }
+
+    console.log(user);
+
+    res.status(200).json({
+      timestamp: Date.now(),
+      msg: "registered OK",
+      code: 200,
+      data: req.body,
+      user,
+    });
   } catch (error) {
     throw new Error(error);
   }
