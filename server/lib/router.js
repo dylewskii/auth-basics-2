@@ -16,14 +16,14 @@ router.post("/register", async (req, res, next) => {
     user.setPassword("password");
 
     let msg = false;
-    msg = user.setFirstName(names.first);
+    msg = user.setFirstName(firstName);
     if (msg) {
       return res
         .status(400)
         .json({ error: { code: 400, type: "first name", message: msg } });
     }
 
-    msg = user.setLastName(names.last);
+    msg = user.setLastName(lastName);
     if (msg) {
       return res
         .status(400)

@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const validate = require("validate.js");
 const constraints = require("../lib/constraints");
 const bcrypt = require("bcrypt");
+const DB = require("../lib/db");
 
 const _ = class User {
   constructor() {
@@ -20,7 +21,8 @@ const _ = class User {
 
   // save user to db
   save() {
-    console.log(`saved user under id: ${this.id}`);
+    // console.log(`saved user under id: ${this.id}`);
+    DB.write({ data: "Hello world" });
   }
 
   // find user with given id
@@ -40,7 +42,7 @@ const _ = class User {
       if (msg) {
         return msg;
       } else {
-        this.name.firstName = firstName;
+        this.name.first = firstName;
       }
     } catch (error) {
       throw new Error(error);
@@ -58,7 +60,7 @@ const _ = class User {
       if (msg) {
         return msg;
       } else {
-        this.name.lastName = lastName;
+        this.name.last = lastName;
       }
     } catch (error) {
       throw new Error(error);
