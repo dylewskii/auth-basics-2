@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const router = require("./lib/router");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy();
 
 // handle urlencoded data
 app.use(express.urlencoded({ extended: true }));
