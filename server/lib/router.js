@@ -89,6 +89,28 @@ router.post("/login", (req, res, next) => {
   })(req, res);
 });
 
+// GET /user
+router.get("/user", async (res, req) => {
+  try {
+    console.group("Get /user - request details:");
+    console.log("------------------------------");
+    console.log(`req.body: ${req.body} `);
+    console.log(`req.params: ${req.params} `);
+    console.log(`req.headers: ${req.headers} `);
+    console.log("------------------------------");
+    console.groupEnd();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(new Error(error.message));
+    res.status(500).json({
+      timestamp: Date.now(),
+      msg: "Failed to get user, internal server error",
+      code: 500,
+    });
+  }
+});
+k;
 // POST /logout
 router.post("/logout", async (req, res) => {
   try {

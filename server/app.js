@@ -35,9 +35,23 @@ app.use(express.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser((user, done) => {
   console.log(`4 - Serialize user ${JSON.stringify(user)}`);
   return done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log(`Deserializing user under id: ${id}`);
+  const user = DB.findOne(id);
+  if (user) {
+    return done(null, {
+      id: user.id,
+      email: user.email,
+    });
+  } else {
+    return done(new Error("No user under specified ID found"));
+  }
 });
 
 passport.use(
