@@ -4,8 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p>Register Below</p>
+    <p>Register Now</p>
+    <div class="auth-app-form">
+      <h2 class="form-heading">Enter your details:</h2>
+
+      <form action="">
+        <label for="email">First Name</label>
+        <input type="first" name="first" id="first" placeholder="Mike" />
+
+        <label for="Last Name">Last Name</label>
+        <input type="last" name="last" id="last" placeholder="Tyson" />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="example@email.com"
+        />
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+
+        <div class="error-message"></div>
+
+        <button type="submit" class="form-button">Register</button>
+
+        <p class="form-toggle">
+          Already have an account?
+          <a href="index.html">Login</a>
+        </p>
+      </form>
+    </div>
   </body>
 </html>
