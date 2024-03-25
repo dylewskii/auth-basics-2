@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const passport = require("passport");
 const { stat } = require("fs");
+const DB = require("../lib/db");
 
 const router = express.Router();
 
@@ -92,15 +93,28 @@ router.post("/login", (req, res, next) => {
 // GET /user
 router.get("/user", async (res, req) => {
   try {
-    console.group("Get /user - request details:");
-    console.log("------------------------------");
-    console.log(`req.body: ${req.body} `);
-    console.log(`req.params: ${req.params} `);
-    console.log(`req.headers: ${req.headers} `);
-    console.log("------------------------------");
-    console.groupEnd();
+    if (!req.isAuthenticated())
+      return res.status(403).json({
+        timestamp: Date.now(),
+        msg: "Access Denied",
+        code: 403,
+      });
 
-    res.sendStatus(200);
+    const user = DB.findOne(req.user?.id);
+
+    if (!user)
+      return res.status(404).json({
+        msg: "User not found",
+        code: 404,
+      });
+
+    res.sendStatus(200).json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+    });
   } catch (error) {
     console.log(new Error(error.message));
     res.status(500).json({
@@ -110,7 +124,7 @@ router.get("/user", async (res, req) => {
     });
   }
 });
-k;
+
 // POST /logout
 router.post("/logout", async (req, res) => {
   try {
