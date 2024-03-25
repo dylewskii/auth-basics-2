@@ -2,8 +2,11 @@ const express = require("express");
 const app = express();
 const router = require("./lib/router");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
+const DB = require("./lib/db");
 const LocalStrategy = require("passport-local").Strategy;
 const cookieSession = require("cookie-session");
+const { resolve } = require("path");
 
 const port = process.env.PORT || 3000;
 
@@ -36,14 +39,33 @@ passport.serializeUser((user, done) => {
   console.log(`4 - Serialize user ${JSON.stringify(user)}`);
   return done(null, user.id);
 });
+
 passport.use(
   "local",
   new LocalStrategy(
     { passReqToCallback: true },
-    (req, username, password, done) => {
+    async (req, username, password, done) => {
       console.log("2 - Local Strategy verify cb");
-      // call db to verify user
-      return done(null, { id: "test" });
+      let user = DB.findByEmail(username);
+      if (!user) {
+        return done(null, false);
+      }
+
+      const result = await new Promise(resolve, (reject) => {
+        bcrypt.compare(password, bcrypt.security.passwordHash, (err, res) => {
+          if (err) reject(err);
+          resolve(res);
+        });
+      });
+
+      if (result) {
+        return done(null, user);
+      } else {
+        return done(
+          "Password or username is incorrect. Please try again.",
+          null
+        );
+      }
     }
   )
 );
