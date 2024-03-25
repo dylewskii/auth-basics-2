@@ -6,6 +6,18 @@ const DB = require("../lib/db");
 
 const router = express.Router();
 
+const requireAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(403).json({
+      timestamp: Date.now(),
+      msg: "Access Denied",
+      code: 403,
+    });
+  }
+};
+
 // POST /register
 router.post("/register", async (req, res, next) => {
   try {
@@ -91,15 +103,8 @@ router.post("/login", (req, res, next) => {
 });
 
 // GET /user
-router.get("/user", async (res, req) => {
+router.get("/user", requireAuth, async (res, req) => {
   try {
-    if (!req.isAuthenticated())
-      return res.status(403).json({
-        timestamp: Date.now(),
-        msg: "Access Denied",
-        code: 403,
-      });
-
     const user = DB.findOne(req.user?.id);
 
     if (!user)
