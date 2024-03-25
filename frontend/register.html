@@ -11,7 +11,7 @@
     <div class="auth-app-form">
       <h2 class="form-heading">Enter your details:</h2>
 
-      <form action="">
+      <form action="" id="register-form">
         <label for="email">First Name</label>
         <input type="first" name="first" id="first" placeholder="Mike" />
 
@@ -34,7 +34,7 @@
           placeholder="Password"
         />
 
-        <div class="error-message"></div>
+        <div id="error-message"></div>
 
         <button type="submit" class="form-button">Register</button>
 
@@ -43,6 +43,8 @@
           <a href="index.html">Login</a>
         </p>
       </form>
+
+      <script src="register.js"></script>
     </div>
   </body>
 </html>
