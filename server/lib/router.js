@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/user");
 const passport = require("passport");
+const { stat } = require("fs");
 
 const router = express.Router();
 
@@ -64,11 +65,19 @@ router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user) => {
     console.log(`3 - Passport authenticate cb ${JSON.stringify(user)}`);
     if (err) {
-      //handle
+      return res.status(401).json({
+        timestamp: Date.now(),
+        msg: "Access Denied. Username or Password Incorrect.",
+        code: 401,
+      });
     }
 
-    if (user) {
-      //handle
+    if (!user) {
+      return res.status(401).json({
+        timestamp: Date.now(),
+        msg: "Unauthorised user.",
+        code: 401,
+      });
     }
 
     req.logIn(user, (err) => {
